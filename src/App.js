@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
+import pokedexApi from './api/pokedexApi';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [listPokedex, setListPokedex] = useState({});
+
+    useEffect(() => {
+        const getPokedex = async () => {
+            try {
+                const response = await pokedexApi.getPokedex();
+                setListPokedex(response.results.slice(0, 10));
+            } catch {
+                console.log('error');
+            }
+        };
+        getPokedex();
+    }, []);
+
+    console.log(listPokedex);
+
+    return <div className='App'></div>;
 }
 
 export default App;
