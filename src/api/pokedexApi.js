@@ -1,8 +1,8 @@
 import axiosClient from './axiosClient';
 
 const pokedexApi = {
-    getPokedex: () => {
-        const url = '/?limit=1126';
+    getPokedex: (offset, limit) => {
+        const url = `/?offset=${offset}&limit=${limit}`;
         return axiosClient.get(url);
     },
     getDetailPokemon: (pokemonName) => {
