@@ -1,6 +1,5 @@
 import { Row, Col, DatePicker, Button } from 'antd';
 import { useState, useEffect } from 'react';
-import 'antd/dist/antd.css';
 
 import pokedexApi from './api/pokedexApi';
 import SearchBar from './components/SearchBar';
@@ -21,9 +20,9 @@ function App() {
     }, []);
 
     return (
-        <div className='App'>
-            <Row justify='center'>
-                <Col span={20} style={{ background: 'yellow' }}>
+        <div className='App' style={{ background: '#f6f8fc' }}>
+            <Row>
+                <Col xl={14} span={20} offset={2}>
                     <SearchBar />
                 </Col>
             </Row>
