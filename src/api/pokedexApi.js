@@ -5,8 +5,9 @@ const pokedexApi = {
         const url = `/?offset=${offset}&limit=${limit}`;
         return axiosClient.get(url);
     },
-    getDetailPokemon: (pokemonName) => {
-        return axiosClient.get(pokemonName);
+    getDetailPokemon: (id) => {
+        const url = `/${id}`;
+        return axiosClient.get(url);
     },
 };
 
