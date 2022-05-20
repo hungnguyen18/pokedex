@@ -27,7 +27,9 @@ export default function Tag({ id }) {
     return (
         <>
             {types?.map((type, i) => (
-                <span key={i}>{type.type.name}</span>
+                <span key={i} className={cx('tag-span', type.type.name)}>
+                    {type.type.name}
+                </span>
             ))}
         </>
     );

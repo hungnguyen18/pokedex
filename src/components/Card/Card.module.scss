@@ -10,7 +10,6 @@
     
 
     .card-img {
-        width: 120px;
         position: absolute;
         top: -60px;
         left: 50%;
@@ -22,9 +21,10 @@
 
     p{
         margin: 0;
-        padding-top: 45px;
-        font-size: 1.4rem;
-        font-weight: 500;
+        padding-top: 20px;
+        padding-bottom: 10px;
+        font-size: 1.2rem;
+        font-weight: bold;
         color: rgb(148, 148, 148);
     }
 
@@ -35,7 +35,7 @@
     }
 
     &:hover .card-img{
-        transform: translateX(-50%) scale(1.5);
+        transform: translateX(-50%) scale(1.3);
     }
 
     &:hover{
