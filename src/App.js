@@ -1,4 +1,4 @@
-import { Row, Col } from 'antd';
+import { Row, Col, Button } from 'antd';
 import { useState, useEffect } from 'react';
 
 import pokedexApi from './api/pokedexApi';
@@ -7,11 +7,18 @@ import SearchBar from './components/SearchBar';
 
 function App() {
     const [listPokedex, setListPokedex] = useState([]);
+    const [limit, setLimit] = useState(100);
+    const [limitDefault, setLimitDefault] = useState(100);
+    const [isDisabled, setIsDisabled] = useState(false);
 
     useEffect(() => {
         const getPokedex = async () => {
             try {
-                const response = await pokedexApi.getPokedex(0, 40);
+                if (limit >= 800) {
+                    setLimitDefault(898 - limit);
+                }
+
+                const response = await pokedexApi.getPokedex(0, limit);
 
                 setListPokedex(response.results);
             } catch {
@@ -19,7 +26,14 @@ function App() {
             }
         };
         getPokedex();
-    }, []);
+    }, [limit]);
+
+    const handleSetLimit = () => {
+        if (limit >= 800) {
+            setIsDisabled(true);
+        }
+        setLimit((prev) => prev + limitDefault);
+    };
 
     return (
         <div className='App' style={{ background: '#f6f8fc' }}>
@@ -35,6 +49,18 @@ function App() {
                             const id = i + 1;
                             return <Card key={id} data={data} id={id} />;
                         })}
+                    </Row>
+
+                    <Row justify='center'>
+                        <Button
+                            type='primary'
+                            danger
+                            size='large'
+                            onClick={handleSetLimit}
+                            style={{ margin: '80px', borderRadius: '10px' }}
+                            disabled={isDisabled}>
+                            Load more
+                        </Button>
                     </Row>
                 </Col>
                 <Col xl={6} md={6} span={0}>
