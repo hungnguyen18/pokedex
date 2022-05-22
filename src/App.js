@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 import pokedexApi from './api/pokedexApi';
 import Card from './components/Card';
+import Detail from './components/Detail';
 import SearchBar from './components/SearchBar';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
     const [limit, setLimit] = useState(100);
     const [limitDefault, setLimitDefault] = useState(100);
     const [isDisabled, setIsDisabled] = useState(false);
+    const [detailPokedex, setDetailPokedex] = useState([]);
 
     useEffect(() => {
         const getPokedex = async () => {
@@ -47,7 +49,14 @@ function App() {
                     <Row gutter={[10, 55]}>
                         {listPokedex.map((data, i) => {
                             const id = i + 1;
-                            return <Card key={id} data={data} id={id} />;
+                            return (
+                                <Card
+                                    onClick={() => setDetailPokedex(id)}
+                                    key={id}
+                                    data={data}
+                                    id={id}
+                                />
+                            );
                         })}
                     </Row>
 
@@ -64,7 +73,7 @@ function App() {
                     </Row>
                 </Col>
                 <Col xl={6} md={6} span={0}>
-                    <div style={{ background: 'blue' }}> 6</div>
+                    <Detail id={detailPokedex} />
                 </Col>
             </Row>
         </div>

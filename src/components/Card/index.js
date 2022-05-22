@@ -7,12 +7,12 @@ import Tag from '../Tag';
 
 const cx = classNames.bind(styles);
 
-export default function Card({ data, id }) {
+export default function Card({ data, id, onClick }) {
     const imgPokemon = apiConfig.originalImg(id);
 
     return (
         <Col xl={6} md={8} xs={12}>
-            <div className={cx('card')}>
+            <div className={cx('card')} onClick={onClick}>
                 <img
                     className={cx('card-img')}
                     src={imgPokemon}

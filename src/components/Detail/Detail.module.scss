@@ -1,0 +1,33 @@
+.detail {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 100%;
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    margin: 0px 15px;
+
+    .detail-img {
+        position: absolute;
+        top: -150px;
+        right: 0;
+        left: 0;
+        margin-right: auto;
+        margin-left: auto;
+        object-fit: contain;
+        image-rendering: pixelated;
+        max-width: 350px;
+        max-height: 22vh;
+    }
+
+    .detail-text {
+        width: 150px;
+        margin: auto;
+        text-align: center;
+        font-size: 1.8rem;
+        color: #8F9396;
+        font-weight: 500;
+    }
+
+}
