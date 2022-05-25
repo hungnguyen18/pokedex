@@ -46,7 +46,7 @@ function App() {
             </Row>
             <Row justify='center' style={{ marginTop: '80px' }}>
                 <Col xl={14} md={14} xs={20}>
-                    <Row gutter={[10, 55]}>
+                    <Row gutter={[20, 55]}>
                         {listPokedex.map((data, i) => {
                             const id = i + 1;
                             return (

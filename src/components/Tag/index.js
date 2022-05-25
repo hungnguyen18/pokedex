@@ -1,36 +1,44 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './Tag.module.scss';
-import pokedexApi from '../../api/pokedexApi';
 
 const cx = classNames.bind(styles);
 
-export default function Tag({ id }) {
-    const [listDetailPokedex, setListDetailPokedex] = useState([]);
-    const types = listDetailPokedex.types;
-
-    useEffect(() => {
-        const getListDetaitPokedex = async () => {
-            try {
-                const response = await pokedexApi.getDetailPokemon(id);
-
-                setListDetailPokedex(response);
-            } catch {
-                console.log('error');
-            }
-        };
-        getListDetaitPokedex();
-    }, []);
+export default function Tag({ children, className, stats, statName }) {
+    switch (statName) {
+        case 'hp':
+            statName = 'HP';
+            break;
+        case 'attack':
+            statName = 'ATK';
+            break;
+        case 'defense':
+            statName = 'DEF';
+            break;
+        case 'special-attack':
+            statName = 'SpA';
+            break;
+        case 'special-defense':
+            statName = 'SpA';
+            break;
+        case 'speed':
+            statName = 'SPD';
+            break;
+        default:
+            statName = null;
+    }
 
     return (
         <>
-            {types?.map((type, i) => (
-                <span key={i} className={cx('tag-span', type.type.name)}>
-                    {type.type.name}
-                </span>
-            ))}
+            {stats ? (
+                <div className={cx('tag-stats')}>
+                    <span className={cx(statName)}>{statName}</span>
+                    <p>{children.base_stat}</p>
+                </div>
+            ) : (
+                <span className={cx('tag-span', className)}>{children}</span>
+            )}
         </>
     );
 }

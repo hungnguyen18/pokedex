@@ -1,5 +1,5 @@
 const apiConfig = {
-    baseUrl: 'https://pokeapi.co/api/v2/pokemon',
+    baseUrl: 'https://pokeapi.co/api/v2/',
     originalImg: (id) =>
         `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
     originalGif: (id) =>

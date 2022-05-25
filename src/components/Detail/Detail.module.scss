@@ -1,20 +1,17 @@
 .detail {
-    position: fixed;
+    position: relative;
     display: flex;
     flex-direction: column;
-    width: 350px;
-    height: 100%;
+    align-items: center;
+    height: 1200px;
     border-radius: var(--border-radius);
     background-color: var(--white);
     margin: 0px 15px;
 
+    //Unselect pokemon
     .detail-img {
         position: absolute;
         top: -150px;
-        right: 0;
-        left: 0;
-        margin-right: auto;
-        margin-left: auto;
         object-fit: contain;
         image-rendering: pixelated;
         max-width: 350px;
@@ -23,11 +20,80 @@
 
     .detail-text {
         width: 150px;
-        margin: auto;
+        margin-top: 400px;
         text-align: center;
         font-size: 1.8rem;
         color: #8F9396;
         font-weight: 500;
+    }
+
+
+    //Select pokemon
+    .detail__mt {
+        margin-top: 20px;
+    }
+
+    h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .detail-gif {
+        position: absolute;
+        top: -130px;
+        right: 0;
+        left: 0;
+        bottom: 77vh;
+        height: 207px;
+        margin-right: auto;
+        margin-left: auto;
+        object-fit: contain;
+        image-rendering: pixelated;
+        max-width: 350px;
+        max-height: 22vh;
+    }
+
+    .detail-id {
+        color: #8F9396;
+        margin-top: 80px;
+        font-weight: 600;
+    }
+
+    .detail-name {
+        margin: 0;
+        text-transform: uppercase;
+        font-size: 2.5rem;
+        font-weight: 800;
+    }
+
+    .detail-entry {
+        text-align: center;
+        line-height: 2.5rem;
+        font-size: 1.6rem;
+        font-weight: 500;
+        padding: 5px 45px;
+    }
+
+    .detail-info {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .detail-abilities {
+        width: 100%;
+    }
+
+    .detail-properties {
+        font-weight: 500;
+        width: 120px;
+        text-align: center;
+        background-color: #F6F8FC;
+        padding: 8px 5px;
+        border-radius: 30px;
+        margin: 5px;
+        text-transform: capitalize;
     }
 
 }
