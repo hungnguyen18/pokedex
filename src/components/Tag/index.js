@@ -33,7 +33,9 @@ export default function Tag({ children, className, stats, statName }) {
         <>
             {stats ? (
                 <div className={cx('tag-stats')}>
-                    <span className={cx(statName)}>{statName}</span>
+                    <div className={cx('tag-stat-name', statName)}>
+                        {statName}
+                    </div>
                     <p>{children.base_stat}</p>
                 </div>
             ) : (

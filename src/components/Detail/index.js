@@ -116,7 +116,7 @@ export default function Detail({ id }) {
 
                         <div className={cx('detail-stats', 'detail__mt')}>
                             <h3>Stats</h3>
-                            <div>
+                            <div className={cx('stats')}>
                                 {stats.map((item, i) => {
                                     return (
                                         <div key={i}>
