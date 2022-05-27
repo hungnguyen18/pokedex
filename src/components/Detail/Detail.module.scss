@@ -73,6 +73,7 @@
         font-size: 1.6rem;
         font-weight: 450;
         padding: 0px 30px;
+        color: #8F9396;
     }
 
     .detail-info {
@@ -106,5 +107,19 @@
         justify-content: space-around;
         flex-wrap: wrap;
     }
+}
 
+.detail-evolution {
+    width: 100%;
+
+    .detail-chain {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .detail-properties {
+        height: 50%;
+        width: 80px;
+    }
 }

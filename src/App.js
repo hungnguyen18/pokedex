@@ -8,8 +8,8 @@ import SearchBar from './components/SearchBar';
 
 function App() {
     const [listPokedex, setListPokedex] = useState([]);
-    const [limit, setLimit] = useState(100);
-    const [limitDefault, setLimitDefault] = useState(100);
+    const [limit, setLimit] = useState(50);
+    const [limitDefault, setLimitDefault] = useState(50);
     const [isDisabled, setIsDisabled] = useState(false);
     const [detailPokedex, setDetailPokedex] = useState([]);
 

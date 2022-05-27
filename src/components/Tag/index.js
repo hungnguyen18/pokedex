@@ -25,6 +25,9 @@ export default function Tag({ children, className, stats, statName }) {
         case 'speed':
             statName = 'SPD';
             break;
+        case 'tdt':
+            statName = 'TDT';
+            break;
         default:
             statName = null;
     }

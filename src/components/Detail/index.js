@@ -12,28 +12,61 @@ const cx = classNames.bind(styles);
 export default function Detail({ id }) {
     const [detail, setDetail] = useState({});
     const [entries, setEntries] = useState({});
+    const [chainEvolution, setChainEvolution] = useState({});
 
-    //Bug
-    const gif = apiConfig.originalGif(detail.id);
-    const img = apiConfig.originalImg(detail.id);
+    //Image and gif
+    const gif = apiConfig.originalGif;
+    const img = apiConfig.originalImg;
 
-    const entriesPokemon = id.length === 0 ? null : entries;
-    const abilities = detail.abilities;
+    // Set info pokemon
+    const entriesPokemon = id > 0 ? entries : null;
+    const abilities = id > 0 ? detail.abilities?.slice(0, 2) : null;
     const types = detail.types;
     const stats = detail.stats;
 
+    //Set id img evolution chain
+    const idChainImg1 =
+        id > 0
+            ? chainEvolution.species?.url?.slice(42)?.replace('/', '')
+            : null;
+    const idChainImg2 =
+        id > 0
+            ? chainEvolution.evolves_to?.map((item) =>
+                  item.species?.url?.slice(42)?.toString().replace('/', '')
+              )
+            : null;
+    const idChainImg3 =
+        id > 0
+            ? chainEvolution.evolves_to?.map((item) =>
+                  item.evolves_to
+                      ?.map((item) => item.species?.url?.slice(42))
+                      ?.toString()
+                      .replace('/', '')
+              )
+            : null;
+
+    //Call api
     useEffect(() => {
         const getDetait = async () => {
             try {
                 const resDetail = await pokedexApi.getDetailPokemon(id);
                 const resEntries = await pokedexApi.getEntriesPokemon(id);
 
+                //Set response
                 if (id.length === 0) {
                     setDetail({});
                     setEntries({});
+                    setChainEvolution({});
                 } else {
+                    //Call url evolution pokemon
+                    const resEvolutionChain = await fetch(
+                        resEntries.evolution_chain.url
+                    );
+                    const resChain = await resEvolutionChain.json();
+
                     setDetail(resDetail);
                     setEntries(resEntries.flavor_text_entries.slice(0, 1));
+                    setChainEvolution(resChain.chain);
                 }
             } catch {
                 console.log('error');
@@ -60,7 +93,7 @@ export default function Detail({ id }) {
                     <>
                         <img
                             className={cx('detail-gif')}
-                            src={gif || img}></img>
+                            src={gif(detail.id) || img(detail.id)}></img>
 
                         <p className={cx('detail-id')}>N° {detail.id}</p>
 
@@ -128,6 +161,57 @@ export default function Detail({ id }) {
                                         </div>
                                     );
                                 })}
+                            </div>
+                        </div>
+
+                        <div className={cx('detail-evolution', 'detail__mt')}>
+                            <h3>Evolution</h3>
+                            <div className={cx('detail-chain')}>
+                                {idChainImg1 > 0 && (
+                                    <img src={img(idChainImg1)} />
+                                )}
+
+                                <div>
+                                    {chainEvolution.evolves_to.map((item) => {
+                                        return item.evolution_details
+                                            .slice(0, 1)
+                                            .map((item, i) => (
+                                                <div
+                                                    key={i}
+                                                    className={cx(
+                                                        'detail-properties'
+                                                    )}>
+                                                    {item.min_level || '?'}
+                                                </div>
+                                            ));
+                                    })}
+                                </div>
+
+                                {idChainImg2 > 0 && (
+                                    <img src={img(idChainImg2)} />
+                                )}
+
+                                <div>
+                                    {chainEvolution.evolves_to.map((item) =>
+                                        item.evolves_to.map((item) =>
+                                            item.evolution_details
+                                                .slice(0, 1)
+                                                .map((item, i) => (
+                                                    <div
+                                                        key={i}
+                                                        className={cx(
+                                                            'detail-properties'
+                                                        )}>
+                                                        {item.min_level || '?'}
+                                                    </div>
+                                                ))
+                                        )
+                                    )}
+                                </div>
+
+                                {idChainImg3 > 0 && (
+                                    <img src={img(idChainImg3)} />
+                                )}
                             </div>
                         </div>
                     </>
