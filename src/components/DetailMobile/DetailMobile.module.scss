@@ -1,0 +1,16 @@
+.detail-overlay {
+    position: absolute;
+    width: 100%;
+    top: -100vh;
+    height: 100vh;
+    background: rgba(145, 57, 57, 0.5);
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.detail-content {
+    background-color: var(--white);
+    height: 80vh;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}

@@ -10,12 +10,13 @@ import { Affix } from 'antd';
 const cx = classNames.bind(styles);
 
 export default function Detail({ id }) {
+    // const [idDetail, setIdDetail] = useState(id);
     const [detail, setDetail] = useState({});
     const [entries, setEntries] = useState({});
     const [chainEvolution, setChainEvolution] = useState({});
 
     //Image and gif
-    const gif = apiConfig.originalGif;
+    const gif = id >= 650 ? apiConfig.originalImg : apiConfig.originalGif;
     const img = apiConfig.originalImg;
 
     // Set info pokemon
@@ -49,6 +50,10 @@ export default function Detail({ id }) {
     useEffect(() => {
         const getDetait = async () => {
             try {
+                // if (id) {
+                //     setIdDetail(id);
+                // }
+
                 const resDetail = await pokedexApi.getDetailPokemon(id);
                 const resEntries = await pokedexApi.getEntriesPokemon(id);
 
@@ -74,6 +79,10 @@ export default function Detail({ id }) {
         };
         getDetait();
     }, [id]);
+
+    // const handleSetId = (idChainImg1) => {
+    //     setIdDetail(idChainImg1);
+    // };
 
     return (
         <Affix offsetTop={150}>
@@ -168,11 +177,14 @@ export default function Detail({ id }) {
                             <h3>Evolution</h3>
                             <div className={cx('detail-chain')}>
                                 {idChainImg1 > 0 && (
-                                    <img src={img(idChainImg1)} />
+                                    <div>
+                                        <img src={img(idChainImg1)} />
+                                    </div>
                                 )}
 
-                                <div>
-                                    {chainEvolution.evolves_to.map((item) => {
+                                {chainEvolution.evolves_to
+                                    .slice(0, 1)
+                                    .map((item) => {
                                         return item.evolution_details
                                             .slice(0, 1)
                                             .map((item, i) => (
@@ -185,29 +197,26 @@ export default function Detail({ id }) {
                                                 </div>
                                             ));
                                     })}
-                                </div>
 
                                 {idChainImg2 > 0 && (
                                     <img src={img(idChainImg2)} />
                                 )}
 
-                                <div>
-                                    {chainEvolution.evolves_to.map((item) =>
-                                        item.evolves_to.map((item) =>
-                                            item.evolution_details
-                                                .slice(0, 1)
-                                                .map((item, i) => (
-                                                    <div
-                                                        key={i}
-                                                        className={cx(
-                                                            'detail-properties'
-                                                        )}>
-                                                        {item.min_level || '?'}
-                                                    </div>
-                                                ))
-                                        )
-                                    )}
-                                </div>
+                                {chainEvolution.evolves_to.map((item) =>
+                                    item.evolves_to.slice(0, 1).map((item) =>
+                                        item.evolution_details
+                                            .slice(0, 1)
+                                            .map((item, i) => (
+                                                <div
+                                                    key={i}
+                                                    className={cx(
+                                                        'detail-properties'
+                                                    )}>
+                                                    {item.min_level || '?'}
+                                                </div>
+                                            ))
+                                    )
+                                )}
 
                                 {idChainImg3 > 0 && (
                                     <img src={img(idChainImg3)} />
