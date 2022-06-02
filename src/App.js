@@ -20,6 +20,8 @@ function App() {
     const [detailPokedex, setDetailPokedex] = useState([]);
     const [modalVisible, setModalVisible] = useState('none');
 
+    const [aniDetail, setAniDetail] = useState('');
+
     useEffect(() => {
         const getPokedex = async () => {
             try {
@@ -45,9 +47,10 @@ function App() {
     };
 
     const handleSetDetail = (id) => {
+        const isVisible = modalVisible === 'none' ? 'block' : 'none';
+
         setDetailPokedex(id);
 
-        const isVisible = modalVisible === 'none' ? 'block' : 'none';
         setModalVisible(isVisible);
     };
 
@@ -60,13 +63,17 @@ function App() {
                     </Col>
                 </Row>
                 <Row className={cx('app-content')} justify='center'>
-                    <Col xl={14} md={14} xs={20}>
+                    <Col xl={14} md={10} xs={20}>
                         <Row gutter={[20, 55]}>
                             {listPokedex.map((data, i) => {
                                 const id = i + 1;
                                 return (
                                     <Card
-                                        onClick={() => handleSetDetail(id)}
+                                        onClick={() => {
+                                            setAniDetail('slideIn');
+
+                                            handleSetDetail(id);
+                                        }}
                                         key={id}
                                         data={data}
                                         id={id}
@@ -88,8 +95,10 @@ function App() {
                         </Row>
                     </Col>
 
-                    <Col xl={6} md={6} span={0}>
-                        <Detail id={detailPokedex} />
+                    <Col xl={6} md={10} span={0}>
+                        <div onAnimationEnd={() => setAniDetail('')}>
+                            <Detail slideIn={aniDetail} id={detailPokedex} />
+                        </div>
                     </Col>
 
                     <Col xl={0} md={0} xs={24} span={0}>
