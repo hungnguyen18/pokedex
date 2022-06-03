@@ -5,8 +5,8 @@ import classNames from 'classnames/bind';
 import styles from './App.scss';
 import pokedexApi from './api/pokedexApi';
 import Card from './components/Card';
-import Detail from './components/Detail';
-import DetailMobile from './components/DetailMobile';
+import DetailPC from './components/Detail/DetailPC';
+import DetailMobile from './components/Detail/DetailMobile';
 import SearchBar from './components/SearchBar';
 import { CloseOutlined } from '@ant-design/icons';
 
@@ -97,7 +97,7 @@ function App() {
 
                     <Col xl={6} md={10} span={0}>
                         <div onAnimationEnd={() => setAniDetail('')}>
-                            <Detail slideIn={aniDetail} id={detailPokedex} />
+                            <DetailPC slideIn={aniDetail} id={detailPokedex} />
                         </div>
                     </Col>
 

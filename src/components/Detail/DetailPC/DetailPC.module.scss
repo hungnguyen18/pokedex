@@ -1,0 +1,48 @@
+.detail {
+    position: relative;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 82vh;
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    margin: 0px 15px;
+   
+    //Unselect pokemon
+    .detail-img {
+        position: absolute;
+        bottom: 77vh;
+        height: 207px;
+        object-fit: contain;
+        image-rendering: pixelated;
+        max-width: 350px;
+        max-height: 22vh;
+    }
+
+    .detail-text {
+        width: 150px;
+        margin-top: 400px;
+        text-align: center;
+        font-size: 1.8rem;
+        color: #8F9396;
+        font-weight: 500;
+    }
+}
+
+.slideIn {
+    animation: slideIn ease-in-out 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slideIn {
+    0% {
+        right: 0;
+    }
+    50% {
+        right: -500px
+    }
+    100% {
+        right: 0;
+    }
+}
