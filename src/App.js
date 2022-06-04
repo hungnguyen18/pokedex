@@ -1,5 +1,5 @@
 import { Row, Col, Button, Affix } from 'antd';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './App.scss';
@@ -22,6 +22,9 @@ function App() {
 
     const [aniDetail, setAniDetail] = useState('');
 
+    const [resSearch, setResSearch] = useState([]);
+    const [listSearch, setListSearch] = useState([]);
+
     useEffect(() => {
         const getPokedex = async () => {
             try {
@@ -30,8 +33,10 @@ function App() {
                 }
 
                 const response = await pokedexApi.getPokedex(0, limit);
+                const resSearch = await pokedexApi.getPokedex(0, 898);
 
                 setListPokedex(response.results);
+                setResSearch(resSearch.results);
             } catch {
                 console.log('error');
             }
@@ -54,33 +59,52 @@ function App() {
         setModalVisible(isVisible);
     };
 
+    //Send data searchBar component to App component
+    const funcCallbackChildren = (listSearchPokedex) => {
+        setTimeout(() => {
+            setListSearch(listSearchPokedex);
+        }, 0);
+    };
+
+    console.log(listSearch);
     return (
         <div className='App'>
             <div className={cx('app-wrapper')}>
                 <Row>
                     <Col xl={14} span={20} offset={2}>
-                        <SearchBar />
+                        <SearchBar
+                            resSearch={resSearch}
+                            callBackChildren={funcCallbackChildren}
+                        />
                     </Col>
                 </Row>
                 <Row className={cx('app-content')} justify='center'>
                     <Col xl={14} md={10} xs={20}>
-                        <Row gutter={[20, 55]}>
-                            {listPokedex.map((data, i) => {
-                                const id = i + 1;
-                                return (
-                                    <Card
-                                        onClick={() => {
-                                            setAniDetail('slideIn');
+                        {listSearch.length > 0 ? (
+                            <Row gutter={[20, 55]}>
+                                <div>
+                                    <h1>Ok</h1>
+                                </div>
+                            </Row>
+                        ) : (
+                            <Row gutter={[20, 55]}>
+                                {listPokedex.map((data, i) => {
+                                    const id = i + 1;
+                                    return (
+                                        <Card
+                                            onClick={() => {
+                                                setAniDetail('slideIn');
 
-                                            handleSetDetail(id);
-                                        }}
-                                        key={id}
-                                        data={data}
-                                        id={id}
-                                    />
-                                );
-                            })}
-                        </Row>
+                                                handleSetDetail(id);
+                                            }}
+                                            key={id}
+                                            data={data}
+                                            id={id}
+                                        />
+                                    );
+                                })}
+                            </Row>
+                        )}
 
                         <Row justify='center'>
                             <Button

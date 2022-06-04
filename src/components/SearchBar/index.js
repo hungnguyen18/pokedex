@@ -6,7 +6,9 @@ import { SearchOutlined } from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
-export default function SearchBar() {
+export default function SearchBar({ resSearch, callBackChildren }) {
+    callBackChildren('ok');
+
     return (
         <div className={cx('wrapper')}>
             <input

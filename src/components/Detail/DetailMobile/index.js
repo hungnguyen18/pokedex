@@ -24,6 +24,14 @@ export default function DetailMobile({ id }) {
     const types = detail.types;
     const stats = detail.stats;
 
+    const typeOverlay =
+        id > 0
+            ? detail.types
+                  ?.slice(0, 1)
+                  .map((item) => item.type.name)
+                  .toString()
+            : null;
+
     //Set id img evolution chain
     const idChainImg1 =
         id > 0
@@ -80,7 +88,7 @@ export default function DetailMobile({ id }) {
     }, [id]);
 
     return (
-        <div className={cx('detail-overlay')}>
+        <div className={cx('detail-overlay', typeOverlay)}>
             <div className={cx('detail-content')}>
                 {JSON.stringify(detail) !== '{}' && (
                     <DetailContent
