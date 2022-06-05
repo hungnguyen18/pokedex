@@ -20,10 +20,13 @@ function App() {
     const [detailPokedex, setDetailPokedex] = useState([]);
     const [modalVisible, setModalVisible] = useState('none');
 
+    //Animation
     const [aniDetail, setAniDetail] = useState('');
 
+    //Search
     const [resSearch, setResSearch] = useState([]);
     const [listSearch, setListSearch] = useState([]);
+    const [isInputSearch, setIsInputSearch] = useState(false);
 
     useEffect(() => {
         const getPokedex = async () => {
@@ -60,13 +63,14 @@ function App() {
     };
 
     //Send data searchBar component to App component
-    const funcCallbackChildren = (listSearchPokedex) => {
+    const funcCallbackChildren = (listSearchPokedex, callBackInput) => {
         setTimeout(() => {
             setListSearch(listSearchPokedex);
+
+            setIsInputSearch(callBackInput);
         }, 0);
     };
 
-    console.log(listSearch);
     return (
         <div className='App'>
             <div className={cx('app-wrapper')}>
@@ -80,11 +84,27 @@ function App() {
                 </Row>
                 <Row className={cx('app-content')} justify='center'>
                     <Col xl={14} md={10} xs={20}>
-                        {listSearch.length > 0 ? (
+                        {isInputSearch ? (
                             <Row gutter={[20, 55]}>
-                                <div>
-                                    <h1>Ok</h1>
-                                </div>
+                                {listSearch.map((data, i) => {
+                                    const id = data.url
+                                        .slice(34)
+                                        .replace('/', '');
+
+                                    console.log();
+                                    return (
+                                        <Card
+                                            onClick={() => {
+                                                setAniDetail('slideIn');
+
+                                                handleSetDetail(id);
+                                            }}
+                                            key={i}
+                                            data={data}
+                                            id={id}
+                                        />
+                                    );
+                                })}
                             </Row>
                         ) : (
                             <Row gutter={[20, 55]}>
