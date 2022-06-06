@@ -26,15 +26,16 @@ h3 {
 .detail-wrapper {
     text-align: center;
     overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        border-radius: 100rem;
+    }
 }
 
-.detail-wrapper::-webkit-scrollbar {
-    width: 5px;
-}
-
-.detail-wrapper::-webkit-scrollbar-thumb {
-    border-radius: 100rem;
-}
 
 .detail-id {
     color: #8F9396;

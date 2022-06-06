@@ -1,15 +1,13 @@
 import classNames from 'classnames/bind';
-
 import { useState, useEffect } from 'react';
+import { SearchOutlined } from '@ant-design/icons';
 
 import styles from './SearchBar.module.scss';
-import { SearchOutlined } from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
 export default function SearchBar({ resSearch, callBackChildren }) {
     const [searchValue, setSearchValue] = useState('');
-    const [searchResult, setSearchResult] = useState([]);
 
     useEffect(() => {
         const results = resSearch.filter(

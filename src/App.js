@@ -1,4 +1,4 @@
-import { Row, Col, Button, Affix } from 'antd';
+import { Row, Col, Button, Affix, BackTop } from 'antd';
 import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 
@@ -8,7 +8,7 @@ import Card from './components/Card';
 import DetailPC from './components/Detail/DetailPC';
 import DetailMobile from './components/Detail/DetailMobile';
 import SearchBar from './components/SearchBar';
-import { CloseOutlined } from '@ant-design/icons';
+import { ArrowUpOutlined, CloseOutlined } from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
@@ -127,15 +127,20 @@ function App() {
                         )}
 
                         <Row justify='center'>
-                            <Button
-                                type='primary'
-                                danger
-                                size='large'
-                                onClick={handleSetLimit}
-                                style={{ margin: '80px', borderRadius: '10px' }}
-                                disabled={isDisabled}>
-                                Load more
-                            </Button>
+                            {!isInputSearch && (
+                                <Button
+                                    type='primary'
+                                    danger
+                                    size='large'
+                                    onClick={handleSetLimit}
+                                    style={{
+                                        margin: '80px',
+                                        borderRadius: '10px',
+                                    }}
+                                    disabled={isDisabled}>
+                                    Load more
+                                </Button>
+                            )}
                         </Row>
                     </Col>
 
@@ -146,7 +151,11 @@ function App() {
                     </Col>
 
                     <Col xl={0} md={0} xs={24} span={0}>
-                        <div style={{ display: modalVisible }}>
+                        <div
+                            style={{
+                                display: modalVisible,
+                                marginTop: '500px',
+                            }}>
                             <Affix offsetBottom={0}>
                                 <div className={cx('detail-mobile')}>
                                     <div className={cx('detail-action')}>
@@ -170,6 +179,15 @@ function App() {
                     </Col>
                 </Row>
             </div>
+            <BackTop>
+                <Button
+                    className={cx('btn-top')}
+                    type='primary'
+                    danger
+                    title='Go to top'>
+                    <ArrowUpOutlined />
+                </Button>
+            </BackTop>
         </div>
     );
 }
