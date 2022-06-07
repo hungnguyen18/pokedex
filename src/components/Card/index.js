@@ -35,7 +35,7 @@ export default function Card({ data, id, onClick }) {
     }, [id]);
 
     return (
-        <Col xl={8} md={12} xs={12}>
+        <Col xl={6} md={12} xs={12}>
             <Skeleton active loading={showSkeleton}>
                 <div className={cx('card')} onClick={onClick}>
                     <img

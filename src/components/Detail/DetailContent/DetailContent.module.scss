@@ -54,11 +54,11 @@ h3 {
 
 .detail-entry {
     text-align: center;
-    line-height: 1.5rem;
+    line-height: 2rem;
     font-size: 1.3rem;
-    font-weight: 450;
+    font-weight: 500;
     padding: 0px 30px;
-    color: #8F9396;
+    color: #787878;
 }
 
 .detail-info {
@@ -111,5 +111,6 @@ h3 {
     .detail-properties {
         height: 50%;
         width: 40px;
+        font-weight: 600;
     }
 }

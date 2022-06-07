@@ -72,7 +72,7 @@ function App() {
     };
 
     return (
-        <div className='App'>
+        <div className="App">
             <div className={cx('app-wrapper')}>
                 <Row>
                     <Col xl={14} span={20} offset={2}>
@@ -82,7 +82,7 @@ function App() {
                         />
                     </Col>
                 </Row>
-                <Row className={cx('app-content')} justify='center'>
+                <Row className={cx('app-content')} justify="center">
                     <Col xl={14} md={10} xs={20}>
                         {isInputSearch ? (
                             <Row gutter={[20, 55]}>
@@ -126,18 +126,19 @@ function App() {
                             </Row>
                         )}
 
-                        <Row justify='center'>
+                        <Row justify="center">
                             {!isInputSearch && (
                                 <Button
-                                    type='primary'
+                                    type="primary"
                                     danger
-                                    size='large'
+                                    size="large"
                                     onClick={handleSetLimit}
                                     style={{
                                         margin: '80px',
                                         borderRadius: '10px',
                                     }}
-                                    disabled={isDisabled}>
+                                    disabled={isDisabled}
+                                >
                                     Load more
                                 </Button>
                             )}
@@ -155,17 +156,19 @@ function App() {
                             style={{
                                 display: modalVisible,
                                 marginTop: '500px',
-                            }}>
+                            }}
+                        >
                             <Affix offsetBottom={0}>
                                 <div className={cx('detail-mobile')}>
                                     <div className={cx('detail-action')}>
                                         <Button
-                                            type='primary'
+                                            type="primary"
                                             danger
                                             className={cx('detail-btn')}
                                             onClick={() => {
                                                 setModalVisible('none');
-                                            }}>
+                                            }}
+                                        >
                                             <CloseOutlined />
                                         </Button>
                                     </div>
@@ -179,12 +182,8 @@ function App() {
                     </Col>
                 </Row>
             </div>
-            <BackTop>
-                <Button
-                    className={cx('btn-top')}
-                    type='primary'
-                    danger
-                    title='Go to top'>
+            <BackTop className={cx('back-top')}>
+                <Button className={cx('btn-top')} danger title="Go to top">
                     <ArrowUpOutlined />
                 </Button>
             </BackTop>

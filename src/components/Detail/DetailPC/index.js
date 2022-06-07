@@ -71,7 +71,7 @@ export default function DetailPC({ id, slideIn }) {
                     const resChain = await resEvolutionChain.json();
 
                     setDetail(resDetail);
-                    setEntries(resEntries.flavor_text_entries.slice(0, 1));
+                    setEntries(resEntries.flavor_text_entries);
                     setChainEvolution(resChain.chain);
                 }
             } catch {
@@ -92,8 +92,9 @@ export default function DetailPC({ id, slideIn }) {
                     <>
                         <img
                             className={cx('detail-img')}
-                            src='https://js-pokedex-virid.vercel.app/src/no-pokemon-selected-image.png'
-                            alt='Img detail'></img>
+                            src="https://js-pokedex-virid.vercel.app/src/no-pokemon-selected-image.png"
+                            alt="Img detail"
+                        ></img>
 
                         <span className={cx('detail-text')}>
                             Select a Pokemon to display here.

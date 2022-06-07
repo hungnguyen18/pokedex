@@ -77,7 +77,7 @@ export default function DetailMobile({ id }) {
                     const resChain = await resEvolutionChain.json();
 
                     setDetail(resDetail);
-                    setEntries(resEntries.flavor_text_entries.slice(0, 1));
+                    setEntries(resEntries.flavor_text_entries);
                     setChainEvolution(resChain.chain);
                 }
             } catch {

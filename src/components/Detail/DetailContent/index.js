@@ -19,12 +19,22 @@ export default function DetailContent({
     idChainImg2,
     idChainImg3,
 }) {
+    const height =
+        detail.height.toString().replace(/\B(?=(?!\d{2})+(\d))/g, ',') + 'm';
+    const weight =
+        detail.weight.toString().replace(/\B(?=(?!\d{2})+(\d))/g, ',') + 'kg';
+
+    const entry = entriesPokemon
+        .filter((item) => item.language.name.toLowerCase().indexOf('en') !== -1)
+        .slice(10, 11);
+
     return (
         <>
             <img
                 className={cx('detail-gif')}
                 src={gif(detail.id) || img(detail.id)}
-                alt={detail.name}></img>
+                alt={detail.name}
+            ></img>
 
             <div className={cx('detail-wrapper')}>
                 <p className={cx('detail-id')}>N° {detail.id}</p>
@@ -43,25 +53,17 @@ export default function DetailContent({
 
                 <div className={cx('detail-entry', 'detail__mt')}>
                     <h3>Pokedex Entry</h3>
-                    <span>
-                        {entriesPokemon.map((entry) =>
-                            entry.flavor_text.toString()
-                        )}
-                    </span>
+                    <span>{entry.map((item) => item.flavor_text)}</span>
                 </div>
 
                 <div className={cx('detail-info', 'detail__mt')}>
                     <div>
                         <h3>Height</h3>
-                        <div className={cx('detail-properties')}>
-                            {detail.height}
-                        </div>
+                        <div className={cx('detail-properties')}>{height}</div>
                     </div>
                     <div>
                         <h3>Weight</h3>
-                        <div className={cx('detail-properties')}>
-                            {detail.weight}
-                        </div>
+                        <div className={cx('detail-properties')}>{weight}</div>
                     </div>
                 </div>
 
@@ -100,7 +102,7 @@ export default function DetailContent({
                             <div>
                                 <img
                                     src={img(idChainImg1)}
-                                    alt='Evolution Chain'
+                                    alt="Evolution Chain"
                                 />
                             </div>
                         )}
@@ -111,14 +113,15 @@ export default function DetailContent({
                                 .map((item, i) => (
                                     <div
                                         key={i}
-                                        className={cx('detail-properties')}>
+                                        className={cx('detail-properties')}
+                                    >
                                         {item.min_level || '?'}
                                     </div>
                                 ));
                         })}
 
                         {idChainImg2 > 0 && (
-                            <img src={img(idChainImg2)} alt='Evolution Chain' />
+                            <img src={img(idChainImg2)} alt="Evolution Chain" />
                         )}
 
                         {chainEvolution.evolves_to.map((item) =>
@@ -128,7 +131,8 @@ export default function DetailContent({
                                     .map((item, i) => (
                                         <div
                                             key={i}
-                                            className={cx('detail-properties')}>
+                                            className={cx('detail-properties')}
+                                        >
                                             {item.min_level || '?'}
                                         </div>
                                     ))
@@ -136,7 +140,7 @@ export default function DetailContent({
                         )}
 
                         {idChainImg3 > 0 && (
-                            <img src={img(idChainImg3)} alt='Evolution Chain' />
+                            <img src={img(idChainImg3)} alt="Evolution Chain" />
                         )}
                     </div>
                 </div>
