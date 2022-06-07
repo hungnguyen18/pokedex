@@ -41,7 +41,8 @@ export default function Card({ data, id, onClick }) {
                     <img
                         className={cx('card-img')}
                         src={imgPokemon}
-                        alt={data.name}></img>
+                        alt={data.name}
+                    ></img>
 
                     <p>N° {id}</p>
 
