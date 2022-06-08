@@ -66,7 +66,7 @@ export default function DetailContent({ id, detail, entries, chainEvolution }) {
         <>
             <img
                 className={cx('detail-gif')}
-                src={gif(detail.id) || img(detail.id)}
+                src={gif(detail.id)}
                 alt={detail.name}
             ></img>
 
