@@ -23,9 +23,8 @@ export default function Card({ data, id, onClick }) {
                 const response = await pokedexApi.getDetailPokemon(id);
 
                 setListDetailPokedex(response);
-                setTimeout(() => {
-                    setShowSkeleton(false);
-                }, 1000);
+
+                setShowSkeleton(false);
             } catch {
                 setShowSkeleton(true);
                 console.log('error');
