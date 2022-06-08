@@ -1,32 +1,66 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './DetailContent.module.scss';
 import Tag from '../../Tag';
+import apiConfig from '../../../api/apiConfig';
+import { IdContext } from '../../../App';
 
 const cx = classNames.bind(styles);
 
-export default function DetailContent({
-    gif,
-    img,
-    detail,
-    types,
-    entriesPokemon,
-    abilities,
-    stats,
-    chainEvolution,
-    idChainImg1,
-    idChainImg2,
-    idChainImg3,
-}) {
-    const height =
-        detail.height.toString().replace(/\B(?=(?!\d{2})+(\d))/g, ',') + 'm';
-    const weight =
-        detail.weight.toString().replace(/\B(?=(?!\d{2})+(\d))/g, ',') + 'kg';
+export default function DetailContent({ id, detail, entries, chainEvolution }) {
+    //Image and gif
+    const gif = id >= 650 ? apiConfig.originalImg : apiConfig.originalGif;
+    const img = apiConfig.originalImg;
+
+    // Set info pokemon
+    const entriesPokemon = id > 0 ? entries : null;
 
     const entry = entriesPokemon
         .filter((item) => item.language.name.toLowerCase().indexOf('en') !== -1)
         .slice(10, 11);
+
+    const height =
+        detail.height.toString().replace(/\B(?=(?!\d{2})+(\d))/g, ',') + 'm';
+
+    const weight =
+        detail.weight.toString().replace(/\B(?=(?!\d{2})+(\d))/g, ',') + 'kg';
+
+    const abilities = id > 0 ? detail.abilities?.slice(0, 2) : null;
+    const types = detail.types;
+    const stats = detail.stats;
+
+    //Set id img evolution chain
+    const idChainImg1 =
+        id > 0
+            ? chainEvolution.species?.url?.slice(42)?.replace('/', '')
+            : null;
+    const idChainImg2 =
+        id > 0
+            ? chainEvolution.evolves_to
+                  ?.map((item) =>
+                      item.species?.url?.slice(42)?.replace('/', '')
+                  )
+                  .toString()
+            : null;
+    const idChainImg3 =
+        id > 0
+            ? chainEvolution.evolves_to
+                  ?.map((item) =>
+                      item.evolves_to?.map((item) =>
+                          item.species?.url?.slice(42).replace('/', '')
+                      )
+                  )
+                  .toString()
+            : null;
+
+    //Function callback
+    const funcCallbackId = useContext(IdContext);
+
+    const handleSetIdDetail = (idChainImg) => {
+        console.log(idChainImg);
+        funcCallbackId(idChainImg);
+    };
 
     return (
         <>
@@ -103,6 +137,9 @@ export default function DetailContent({
                                 <img
                                     src={img(idChainImg1)}
                                     alt="Evolution Chain"
+                                    onClick={() =>
+                                        handleSetIdDetail(idChainImg1)
+                                    }
                                 />
                             </div>
                         )}
@@ -121,7 +158,11 @@ export default function DetailContent({
                         })}
 
                         {idChainImg2 > 0 && (
-                            <img src={img(idChainImg2)} alt="Evolution Chain" />
+                            <img
+                                src={img(idChainImg2)}
+                                alt="Evolution Chain"
+                                onClick={() => handleSetIdDetail(idChainImg2)}
+                            />
                         )}
 
                         {chainEvolution.evolves_to.map((item) =>
@@ -140,7 +181,11 @@ export default function DetailContent({
                         )}
 
                         {idChainImg3 > 0 && (
-                            <img src={img(idChainImg3)} alt="Evolution Chain" />
+                            <img
+                                src={img(idChainImg3)}
+                                alt="Evolution Chain"
+                                onClick={() => handleSetIdDetail(idChainImg3)}
+                            />
                         )}
                     </div>
                 </div>

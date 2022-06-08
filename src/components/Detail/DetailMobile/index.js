@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './DetailMobile.module.scss';
-import apiConfig from '../../../api/apiConfig';
 import pokedexApi from '../../../api/pokedexApi';
 import DetailContent from '../DetailContent';
 
@@ -14,43 +13,12 @@ export default function DetailMobile({ id }) {
     const [entries, setEntries] = useState({});
     const [chainEvolution, setChainEvolution] = useState({});
 
-    //Image and gif
-    const gif = id >= 650 ? apiConfig.originalImg : apiConfig.originalGif;
-    const img = apiConfig.originalImg;
-
-    // Set info pokemon
-    const entriesPokemon = id > 0 ? entries : null;
-    const abilities = id > 0 ? detail.abilities?.slice(0, 2) : null;
-    const types = detail.types;
-    const stats = detail.stats;
-
     const typeOverlay =
         id > 0
             ? detail.types
                   ?.slice(0, 1)
                   .map((item) => item.type.name)
                   .toString()
-            : null;
-
-    //Set id img evolution chain
-    const idChainImg1 =
-        id > 0
-            ? chainEvolution.species?.url?.slice(42)?.replace('/', '')
-            : null;
-    const idChainImg2 =
-        id > 0
-            ? chainEvolution.evolves_to?.map((item) =>
-                  item.species?.url?.slice(42)?.toString().replace('/', '')
-              )
-            : null;
-    const idChainImg3 =
-        id > 0
-            ? chainEvolution.evolves_to?.map((item) =>
-                  item.evolves_to
-                      ?.map((item) => item.species?.url?.slice(42))
-                      ?.toString()
-                      .replace('/', '')
-              )
             : null;
 
     //Call api
@@ -92,17 +60,10 @@ export default function DetailMobile({ id }) {
             <div className={cx('detail-content')}>
                 {JSON.stringify(detail) !== '{}' && (
                     <DetailContent
-                        gif={gif}
-                        img={img}
+                        id={id}
                         detail={detail}
-                        types={types}
-                        entriesPokemon={entriesPokemon}
-                        abilities={abilities}
-                        stats={stats}
+                        entries={entries}
                         chainEvolution={chainEvolution}
-                        idChainImg1={idChainImg1}
-                        idChainImg2={idChainImg2}
-                        idChainImg3={idChainImg3}
                     />
                 )}
             </div>
