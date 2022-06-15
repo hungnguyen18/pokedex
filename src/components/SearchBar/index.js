@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, startTransition } from 'react';
 import { CloseCircleOutlined, SearchOutlined } from '@ant-design/icons';
 
 import styles from './SearchBar.module.scss';
@@ -18,7 +18,9 @@ export default function SearchBar({ resSearch, callBackChildren }) {
                 -1
         );
 
-        callBackChildren(results, !!searchValue);
+        startTransition(() => {
+            callBackChildren(results, !!searchValue);
+        });
     }, [searchValue]);
 
     const handleClear = () => {

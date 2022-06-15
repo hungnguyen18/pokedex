@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './Tag.module.scss';
 
 const cx = classNames.bind(styles);
 
-export default function Tag({ children, className, stats, statName }) {
+function Tag({ children, className, stats, statName }) {
     switch (statName) {
         case 'hp':
             statName = 'HP';
@@ -47,3 +47,5 @@ export default function Tag({ children, className, stats, statName }) {
         </>
     );
 }
+
+export default memo(Tag);

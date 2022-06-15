@@ -18,7 +18,7 @@ export default function Card({ data, id, onClick }) {
     const imgPokemon = apiConfig.originalImg(id);
 
     useEffect(() => {
-        const getListDetaitPokedex = async () => {
+        const getListDetailPokedex = async () => {
             try {
                 const response = await pokedexApi.getDetailPokemon(id);
 
@@ -30,7 +30,7 @@ export default function Card({ data, id, onClick }) {
                 console.log('error');
             }
         };
-        getListDetaitPokedex();
+        getListDetailPokedex();
     }, [id]);
 
     return (

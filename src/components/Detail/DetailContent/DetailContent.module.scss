@@ -96,22 +96,4 @@ h3 {
 
 .detail-evolution {
     width: 100%;
-
-    img{
-        width: 60px;
-        cursor: pointer;
-    }
-
-    .detail-chain {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    .detail-properties {
-        height: 50%;
-        width: 40px;
-        font-weight: 600;
-    }
 }

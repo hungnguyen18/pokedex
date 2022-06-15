@@ -1,14 +1,14 @@
-import { useState, useEffect, createContext } from 'react';
+import { useState, useEffect, createContext, useCallback } from 'react';
 import { Row, Col, Button, Affix, BackTop } from 'antd';
 import classNames from 'classnames/bind';
 
 import styles from './App.scss';
 import pokedexApi from './api/pokedexApi';
-import Card from './components/Card';
 import DetailPC from './components/Detail/DetailPC';
 import DetailMobile from './components/Detail/DetailMobile';
 import SearchBar from './components/SearchBar';
 import { ArrowUpOutlined, CloseOutlined } from '@ant-design/icons';
+import RenderCard from './components/RenderCard';
 
 const cx = classNames.bind(styles);
 
@@ -25,7 +25,7 @@ function App() {
     //Set detail pokemon
     const [detailPokedex, setDetailPokedex] = useState([]);
 
-    //Set modal datail
+    //Set modal detail
     const [modalVisible, setModalVisible] = useState('none');
 
     //Set disabled button load more
@@ -66,13 +66,15 @@ function App() {
         setLimit((prev) => prev + limitDefault);
     };
 
-    const handleSetDetail = (id) => {
+    const handleSetDetail = useCallback((id) => {
         const isVisible = modalVisible === 'none' ? 'block' : 'none';
+
+        setAniDetail('slideIn');
 
         setDetailPokedex(id);
 
         setModalVisible(isVisible);
-    };
+    }, []);
 
     //Send data searchBar component to App component
     const funcCallbackSearch = (listSearchPokedex, callBackInput) => {
@@ -106,47 +108,14 @@ function App() {
                     </Row>
                     <Row className={cx('app-content')} justify="center">
                         <Col xl={14} md={10} xs={20}>
-                            {isInputSearch ? (
-                                <Row gutter={[20, 55]}>
-                                    {listSearch.map((data, i) => {
-                                        const id = data.url
-                                            .slice(34)
-                                            .replace('/', '');
-
-                                        return (
-                                            <Card
-                                                onClick={() => {
-                                                    setAniDetail('slideIn');
-
-                                                    handleSetDetail(id);
-                                                }}
-                                                key={i}
-                                                data={data}
-                                                id={id}
-                                            />
-                                        );
-                                    })}
-                                </Row>
-                            ) : (
-                                <Row gutter={[20, 55]}>
-                                    {listPokedex.map((data, i) => {
-                                        const id = i + 1;
-
-                                        return (
-                                            <Card
-                                                onClick={() => {
-                                                    setAniDetail('slideIn');
-
-                                                    handleSetDetail(id);
-                                                }}
-                                                key={id}
-                                                data={data}
-                                                id={id}
-                                            />
-                                        );
-                                    })}
-                                </Row>
-                            )}
+                            <Row gutter={[20, 55]}>
+                                <RenderCard
+                                    isInputSearch={isInputSearch}
+                                    listSearch={listSearch}
+                                    listPokedex={listPokedex}
+                                    onSetDetail={handleSetDetail}
+                                />
+                            </Row>
 
                             <Row justify="center">
                                 {!isInputSearch && (

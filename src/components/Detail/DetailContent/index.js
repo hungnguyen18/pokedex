@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './DetailContent.module.scss';
 import Tag from '../../Tag';
 import apiConfig from '../../../api/apiConfig';
 import { IdContext } from '../../../App';
+import Evolution from '../../Evolution';
 
 const cx = classNames.bind(styles);
 
@@ -30,37 +31,12 @@ export default function DetailContent({ id, detail, entries, chainEvolution }) {
     const types = detail.types;
     const stats = detail.stats;
 
-    //Set id img evolution chain
-    const idChainImg1 =
-        id > 0
-            ? chainEvolution.species?.url?.slice(42)?.replace('/', '')
-            : null;
-    const idChainImg2 =
-        id > 0
-            ? chainEvolution.evolves_to
-                  ?.map((item) =>
-                      item.species?.url?.slice(42)?.replace('/', '')
-                  )
-                  .toString()
-            : null;
-    const idChainImg3 =
-        id > 0
-            ? chainEvolution.evolves_to
-                  ?.map((item) =>
-                      item.evolves_to?.map((item) =>
-                          item.species?.url?.slice(42).replace('/', '')
-                      )
-                  )
-                  .toString()
-            : null;
-
     //Function callback
     const funcCallbackId = useContext(IdContext);
 
-    const handleSetIdDetail = (idChainImg) => {
-        console.log(idChainImg);
+    const handleSetIdDetail = useCallback((idChainImg) => {
         funcCallbackId(idChainImg);
-    };
+    }, []);
 
     return (
         <>
@@ -130,64 +106,12 @@ export default function DetailContent({ id, detail, entries, chainEvolution }) {
                 </div>
 
                 <div className={cx('detail-evolution', 'detail__mt')}>
-                    <h3>Evolution</h3>
-                    <div className={cx('detail-chain')}>
-                        {idChainImg1 > 0 && (
-                            <div>
-                                <img
-                                    src={img(idChainImg1)}
-                                    alt="Evolution Chain"
-                                    onClick={() =>
-                                        handleSetIdDetail(idChainImg1)
-                                    }
-                                />
-                            </div>
-                        )}
-
-                        {chainEvolution.evolves_to.slice(0, 1).map((item) => {
-                            return item.evolution_details
-                                .slice(0, 1)
-                                .map((item, i) => (
-                                    <div
-                                        key={i}
-                                        className={cx('detail-properties')}
-                                    >
-                                        {item.min_level || '?'}
-                                    </div>
-                                ));
-                        })}
-
-                        {idChainImg2 > 0 && (
-                            <img
-                                src={img(idChainImg2)}
-                                alt="Evolution Chain"
-                                onClick={() => handleSetIdDetail(idChainImg2)}
-                            />
-                        )}
-
-                        {chainEvolution.evolves_to.map((item) =>
-                            item.evolves_to.slice(0, 1).map((item) =>
-                                item.evolution_details
-                                    .slice(0, 1)
-                                    .map((item, i) => (
-                                        <div
-                                            key={i}
-                                            className={cx('detail-properties')}
-                                        >
-                                            {item.min_level || '?'}
-                                        </div>
-                                    ))
-                            )
-                        )}
-
-                        {idChainImg3 > 0 && (
-                            <img
-                                src={img(idChainImg3)}
-                                alt="Evolution Chain"
-                                onClick={() => handleSetIdDetail(idChainImg3)}
-                            />
-                        )}
-                    </div>
+                    <Evolution
+                        id={id}
+                        onSetDetail={handleSetIdDetail}
+                        chainEvolution={chainEvolution}
+                        img={img}
+                    />
                 </div>
             </div>
         </>

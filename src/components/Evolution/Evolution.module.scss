@@ -1,0 +1,17 @@
+.detail-chain {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+
+    img{
+        width: 60px;
+        cursor: pointer;
+    }
+}
+
+.detail-properties {
+    height: 50%;
+    width: 40px;
+    font-weight: 600;
+}
