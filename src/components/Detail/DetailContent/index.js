@@ -34,9 +34,12 @@ export default function DetailContent({ id, detail, entries, chainEvolution }) {
     //Function callback
     const funcCallbackId = useContext(IdContext);
 
-    const handleSetIdDetail = useCallback((idChainImg) => {
-        funcCallbackId(idChainImg);
-    }, []);
+    const handleSetIdDetail = useCallback(
+        (idChainImg) => {
+            funcCallbackId(idChainImg);
+        },
+        [funcCallbackId]
+    );
 
     return (
         <>
